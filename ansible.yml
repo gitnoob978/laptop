@@ -1,0 +1,21 @@
+---
+- name: Deinstalliere Google Chrome
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Entferne Google Chrome (Stabile Version)
+      apt:
+        name: google-chrome-stable
+        state: absent
+        purge: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Entferne Google Chrome (Alternative Paketnamen)
+      apt:
+        name: "{{ item }}"
+        state: absent
+        purge: yes
+      loop:
+        - google-chrome
+        - chrome
+      when: ansible_os_family == "Debian"
