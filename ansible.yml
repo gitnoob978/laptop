@@ -51,9 +51,15 @@
       ignore_errors: yes
       when: ansible_os_family == "Debian"
 
-    - name: Entferne LibreOffice
+    - name: LibreOffice komplett deinstallieren (inkl. deutsche Lokalisierung)
       apt:
-        name: libreoffice
+        name:
+          - libreoffice
+          - libreoffice-l10n-de
+          - libreoffice-help-de
         state: absent
         purge: yes
+      become: yes
       when: ansible_os_family == "Debian"
+
+
