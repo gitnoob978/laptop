@@ -51,9 +51,9 @@
       ignore_errors: yes
       when: ansible_os_family == "Debian"
 
-    - name: Entferne LibreOffice Writer
+    - name: Entferne LibreOffice
       apt:
-        name: libreoffice-writer
+        name: libreoffice
         state: absent
         purge: yes
       when: ansible_os_family == "Debian"
