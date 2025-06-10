@@ -60,6 +60,7 @@
           - libreoffice-calc
           - libreoffice-impress
           - libreoffice-math
+          - libreoffice-draw
         state: absent
         purge: yes
       when: ansible_os_family == "Debian"
