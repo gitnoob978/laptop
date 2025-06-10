@@ -65,23 +65,16 @@
         purge: yes
       when: ansible_os_family == "Debian"
 
-    - name: Entferne Mines
+    - name: Entferne SpieleMines
       apt:
-        name: mines
+        name: 
+          - gnome-mines
+          - cheese
+          - gnome-mahjongg
+          - gnome-sudoku
+          - aisleriot
         state: absent
         purge: yes
       when: ansible_os_family == "Debian"
 
-    - name: Entferne Cheese
-      apt:
-        name: cheese
-        state: absent
-        purge: yes
-      when: ansible_os_family == "Debian"
-
-    - name: Entferne Mahjongg
-      apt:
-        name: mahjongg
-        state: absent
-        purge: yes
-      when: ansible_os_family == "Debian"
+  
