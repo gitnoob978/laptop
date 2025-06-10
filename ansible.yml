@@ -65,7 +65,7 @@
         purge: yes
       when: ansible_os_family == "Debian"
 
-    - name: Entferne SpieleMines
+    - name: Entferne Spiele
       apt:
         name: 
           - gnome-mines
@@ -75,6 +75,13 @@
           - aisleriot
         state: absent
         purge: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Installiere X2Go Client
+      apt:
+        name: x2goclient
+        state: present
+        update_cache: yes
       when: ansible_os_family == "Debian"
 
   
