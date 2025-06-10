@@ -1,5 +1,5 @@
 ---
-- name: Deinstalliere Google Chrome und Thunderbird
+- name: Deinstalliere Google Chrome, Thunderbird und Rhythmbox
   hosts: localhost
   become: yes
   tasks:
@@ -34,5 +34,19 @@
       with_items:
         - "/home/{{ ansible_user_id }}/.thunderbird"
         - "/home/{{ ansible_user_id }}/.mozilla-thunderbird"
+      ignore_errors: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Entferne Rhythmbox
+      apt:
+        name: rhythmbox
+        state: absent
+        purge: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Entferne lokale Rhythmbox-Konfigurationsdateien
+      file:
+        path: "/home/{{ ansible_user_id }}/.config/rhythmbox"
+        state: absent
       ignore_errors: yes
       when: ansible_os_family == "Debian"
