@@ -1,16 +1,16 @@
 ---
-- name: Deinstalliere Google Chrome
+- name: Deinstalliere Google Chrome und Thunderbird
   hosts: localhost
   become: yes
   tasks:
-    - name: Entferne Google Chrome (Stabile Version)
+    - name: Entferne Google Chrome (stabile Version)
       apt:
         name: google-chrome-stable
         state: absent
         purge: yes
       when: ansible_os_family == "Debian"
 
-    - name: Entferne Google Chrome (Alternative Paketnamen)
+    - name: Entferne Google Chrome (alternative Paketnamen)
       apt:
         name: "{{ item }}"
         state: absent
@@ -18,4 +18,21 @@
       loop:
         - google-chrome
         - chrome
+      when: ansible_os_family == "Debian"
+
+    - name: Entferne Thunderbird
+      apt:
+        name: thunderbird
+        state: absent
+        purge: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Entferne lokale Thunderbird-Konfigurationsdateien
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - "/home/{{ ansible_user_id }}/.thunderbird"
+        - "/home/{{ ansible_user_id }}/.mozilla-thunderbird"
+      ignore_errors: yes
       when: ansible_os_family == "Debian"
