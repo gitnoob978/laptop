@@ -1,5 +1,5 @@
 ---
-- name: Deinstalliere Google Chrome, Thunderbird und Rhythmbox
+- name: Deinstalliere Google Chrome, Thunderbird, Rhythmbox und LibreOffice Writer
   hosts: localhost
   become: yes
   tasks:
@@ -31,7 +31,7 @@
       file:
         path: "{{ item }}"
         state: absent
-      with_items:
+      loop:
         - "/home/{{ ansible_user_id }}/.thunderbird"
         - "/home/{{ ansible_user_id }}/.mozilla-thunderbird"
       ignore_errors: yes
@@ -49,4 +49,11 @@
         path: "/home/{{ ansible_user_id }}/.config/rhythmbox"
         state: absent
       ignore_errors: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Entferne LibreOffice Writer
+      apt:
+        name: libreoffice-writer
+        state: absent
+        purge: yes
       when: ansible_os_family == "Debian"
