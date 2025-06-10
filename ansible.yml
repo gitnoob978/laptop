@@ -57,6 +57,9 @@
           - libreoffice
           - libreoffice-l10n-de
           - libreoffice-help-de
+          - libreoffice-calc
+          - libreoffice-impress
+          - libreoffice-math
         state: absent
         purge: yes
       when: ansible_os_family == "Debian"
@@ -71,6 +74,13 @@
     - name: Entferne Cheese
       apt:
         name: cheese
+        state: absent
+        purge: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Entferne Mahjongg
+      apt:
+        name: mahjongg
         state: absent
         purge: yes
       when: ansible_os_family == "Debian"
